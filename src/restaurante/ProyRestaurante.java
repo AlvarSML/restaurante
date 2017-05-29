@@ -25,7 +25,7 @@ public class ProyRestaurante {
     
     public static void main(String[] args) throws IOException {
         
-        // pruebas
+        // pruebas asdas
         Restaurante r = new Restaurante("R1");
         r.nuevaSala("sala1");
         
