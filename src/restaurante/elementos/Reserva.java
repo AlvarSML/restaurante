@@ -140,11 +140,10 @@ public class Reserva extends Thread implements GestionReserva {
         reg += Integer.toString(fech.get(GregorianCalendar.YEAR))
                 + " - " + Integer.toString(fech.get(GregorianCalendar.MONTH))
                 + " - " + Integer.toString(fech.get(GregorianCalendar.DAY_OF_MONTH))
-                + " Para " + comensales + " personas "
-                + " A las " + hh + ":" + mm
-                + " hecha por el empleado: " + this.codEmpleado
-                + " en la sala: " + sala + " y mesa: " + mesa
-                + " cliente: " + cliente ;
+                + ";" + comensales + ";"+ hh + ":" + mm
+                + ";" + this.codEmpleado
+                + ";" + sala + ";" + mesa
+                + ";" + cliente ;
 
         try (BufferedWriter bw = new BufferedWriter(fw)) {
             bw.write(reg + "\n ");
