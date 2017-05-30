@@ -21,11 +21,12 @@ public interface GestionReserva {
         // la reserva empieza a recogese desde el restaurente para que sea posible comparar ciertos
         // datos, porque el restaurante almacena las clases relaccionadas
         //              Restaurante --1--n--> Sala --1--n--> Mesa
+        
         public abstract void escribeReserva(int comensales, GregorianCalendar fech, String[] s, String c) throws IOException;
         
         // no veo necesario este metodo, para no parar el proceso en el restaurante se vuelve a llamar
         // al metodo del menu o de la recogida de datos, sacarMensaje() solo serviria para ver una linea
         // por pantalla
-        //public abstract void sacaMensaje();        
+        // public abstract void sacaMensaje();        
     
 }

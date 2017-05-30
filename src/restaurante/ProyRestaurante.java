@@ -6,11 +6,7 @@
 package restaurante;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import restaurante.elementos.Forma;
-import restaurante.elementos.Reserva;
-import restaurante.elementos.Restaurante;
-import restaurante.elementos.Sala;
+import restaurante.elementos.bdd;
 
 /**
  *
@@ -23,9 +19,12 @@ public class ProyRestaurante {
      * @throws java.io.IOException
      */
     
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, Exception {
+        bdd db = new bdd();
+        db.MySQLConnection("root","123456","restaurante");
         
         // pruebas asdas
+        /*
         Restaurante r = new Restaurante("R1");
         r.nuevaSala("sala1");
         
@@ -34,8 +33,9 @@ public class ProyRestaurante {
         s.get(0).nuevaMesa((byte) 5, Forma.CUADRADA);
         
         r.menuRest();
-        
+        */
        
     }
+    
 
 }
