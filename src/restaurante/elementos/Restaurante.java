@@ -255,9 +255,13 @@ public class Restaurante {
             System.out.println("No hay mesas disponibles");
             this.menuRest();
         }
-
+        
+        // si todo sale bien se pide el nombre del cliente
+        
+        String cliente = recCadena("Nombre del cliente");
+        
         // se pasan los datos a la reserva
-        r.escribeReserva(com, fech, mesa);
+        r.escribeReserva(com, fech, mesa, cliente);
 
         reservas.add(r);
     }
@@ -311,7 +315,6 @@ public class Restaurante {
                 System.out.println("--- Reservas ---");
 
                 if (reservas.size() > 0) {
-
                     reservas.get(0).start();
                 } else {
                     System.out.println("No hay reservas");

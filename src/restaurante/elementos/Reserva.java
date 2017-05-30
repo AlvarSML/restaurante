@@ -28,7 +28,7 @@ public class Reserva extends Thread implements GestionReserva {
 
     private GregorianCalendar fecha;
     private int comensales, mesa;
-    private String sala;
+    private String sala, cliente;
 
     @Override
     public boolean existeFichero(String f) throws IOException {
@@ -113,7 +113,7 @@ public class Reserva extends Thread implements GestionReserva {
     }
    
    @Override
-   public void escribeReserva(int comensales, GregorianCalendar fech, String[] s) throws IOException {
+   public void escribeReserva(int comensales, GregorianCalendar fech, String[] s, String cliente) throws IOException {
 
         this.comensales = comensales;
         this.mesa = Integer.parseInt(s[1]);
@@ -126,14 +126,25 @@ public class Reserva extends Thread implements GestionReserva {
         this.fecha = fech;
 
         // Generacion de el registro (dia + comensales + hora)
+        String hh = Integer.toString(fech.get(GregorianCalendar.HOUR_OF_DAY));
+        String mm = Integer.toString(fech.get(GregorianCalendar.MINUTE));
+        
+        if (hh.length() == 1) {
+           hh = "0" + hh;
+        }
+        
+        if (mm.length() == 1) {
+           mm = "0" + mm;
+        }
+        
         reg += Integer.toString(fech.get(GregorianCalendar.YEAR))
                 + " - " + Integer.toString(fech.get(GregorianCalendar.MONTH))
                 + " - " + Integer.toString(fech.get(GregorianCalendar.DAY_OF_MONTH))
                 + " Para " + comensales + " personas "
-                + " A las " + Integer.toString(fech.get(GregorianCalendar.HOUR_OF_DAY))
-                + ":" + Integer.toString(fech.get(GregorianCalendar.MINUTE))
+                + " A las " + hh + ":" + mm
                 + " hecha por el empleado: " + this.codEmpleado
-                + " en la sala: " + sala + " y mesa: " + mesa;
+                + " en la sala: " + sala + " y mesa: " + mesa
+                + " cliente: " + cliente ;
 
         try (BufferedWriter bw = new BufferedWriter(fw)) {
             bw.write(reg + "\n ");
