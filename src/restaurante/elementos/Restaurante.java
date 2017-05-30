@@ -59,7 +59,7 @@ public class Restaurante {
         Scanner in = new Scanner(System.in);
 
         System.out.printf("Introduce un %s: ", s);
-        in.nextLine();
+        n = in.nextLine();
 
         if (n.length() < 1) {
             System.out.printf("%s demasiado corto", s);
