@@ -26,7 +26,10 @@ public class ProyRestaurante {
         String passw = in.next();
         
         if(bdd.login(usu,passw)){
-            
+            System.out.println("Conectado!");
+        } else {
+            System.out.println("Error!");
+            login(base);
         }
         
         //hola
@@ -36,7 +39,8 @@ public class ProyRestaurante {
     public static void main(String[] args) throws IOException, Exception {
         bdd db = new bdd();
         db.MySQLConnection("root","123456","restaurante");
-      
+        
+        login(db);
         // pruebas asdas
         /*
         Restaurante r = new Restaurante("R1");
