@@ -41,7 +41,7 @@ public class bdd {
         boolean log = false;
         
         try {
-            String sel = "SELECT md5(passwd) FROM emplados where id = "+usuario+" and passwd = md5('"+pass+"')";
+            String sel = "SELECT md5(passwd) FROM empleado where id = '"+usuario+"' and passwd = md5('"+pass+"')";
             Statement st = Conexion.createStatement();
             ResultSet a = st.executeQuery(sel);
             
