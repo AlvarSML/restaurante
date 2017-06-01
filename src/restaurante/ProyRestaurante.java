@@ -6,6 +6,7 @@
 package restaurante;
 
 import java.io.IOException;
+import java.util.Scanner;
 import restaurante.elementos.bdd;
 
 /**
@@ -14,15 +15,27 @@ import restaurante.elementos.bdd;
  */
 public class ProyRestaurante {
     
-    /**
-     * @param args the command line arguments
-     * @throws java.io.IOException
-     */
+    
+    public static void login(bdd base) throws Exception {
+        Scanner in = new Scanner(System.in);
+        
+        System.out.printf("Usuario >> ");
+        String usu = in.next();
+        
+        System.out.printf("Contraseña >> ");
+        String passw = in.next();
+        
+        if(bdd.login(usu,passw)){
+            
+        }
+        
+        
+    }
     
     public static void main(String[] args) throws IOException, Exception {
         bdd db = new bdd();
         db.MySQLConnection("root","123456","restaurante");
-        
+      
         // pruebas asdas
         /*
         Restaurante r = new Restaurante("R1");

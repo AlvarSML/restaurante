@@ -7,7 +7,9 @@ package restaurante.elementos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -16,7 +18,7 @@ import java.sql.SQLException;
 public class bdd {
     private static Connection Conexion;
     
-    public void MySQLConnection(String user, String pass, String db_name) throws Exception {
+    public void MySQLConnection(String user, String pass, String db_name) throws SQLException {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Conexion = DriverManager.getConnection("jdbc:mysql://localhost:3307/" + db_name, user, pass);
@@ -26,4 +28,31 @@ public class bdd {
         }
     }
     
+    public void closeConnection() {
+        try {
+            Conexion.close();
+            System.out.println("*Desconectado*");
+        } catch (SQLException ex) {
+           System.out.println(ex.getMessage());
+        }
+    }
+    
+    public static boolean login(String usuario, String pass){
+        boolean log = false;
+        
+        try {
+            String sel = "SELECT md5(passwd) FROM emplados where id = "+usuario+" and passwd = md5('"+pass+"')";
+            Statement st = Conexion.createStatement();
+            ResultSet a = st.executeQuery(sel);
+            
+            if(a.next()){
+                log = true;
+            }
+            
+        } catch (SQLException ex){
+            System.out.println(ex.getMessage()); 
+        } 
+        
+        return log;
+    }
 }
