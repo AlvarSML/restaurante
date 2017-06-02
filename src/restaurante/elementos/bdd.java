@@ -59,7 +59,7 @@ public class bdd {
     public static void crearEmpleado(int res, int id, String nom, String ape, String dni, String ss, String fechae, float sueldo, int tipo ){
         
         try {
-            String ins = "IINSERT INTO empleado values ("+res+","+id+",'"+nom+"'";
+            String ins = "INSERT INTO empleado values ("+res+","+id+",'"+nom+"'";
             Statement st = Conexion.createStatement();
             st.executeQuery(ins);
             

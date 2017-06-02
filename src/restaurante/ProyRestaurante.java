@@ -5,6 +5,7 @@
  */
 package restaurante;
 
+import frames.Inicio;
 import java.io.IOException;
 import java.util.Scanner;
 import restaurante.elementos.bdd;
@@ -40,7 +41,8 @@ public class ProyRestaurante {
         bdd db = new bdd();
         db.MySQLConnection("root","123456","restaurante");
         
-        login(db);
+        Inicio ini = new Inicio();
+        ini.inicio();
         // pruebas asdas
         /*
         Restaurante r = new Restaurante("R1");
