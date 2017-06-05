@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import javax.swing.*;
+import restaurante.bdd;
 
 /**
  *
@@ -22,7 +23,7 @@ public class nEmp extends JFrame implements ActionListener {
 
     private JComboBox desp = new JComboBox();
 
-    private JLabel titulo = new JLabel("Nuevo empeado");
+    private JLabel titulo = new JLabel("Nuevo empleado");
     private JLabel tipo = new JLabel("Tipo");
 
     private JLabel nom = new JLabel("Nombre");
@@ -45,9 +46,15 @@ public class nEmp extends JFrame implements ActionListener {
 
     private JLabel horario = new JLabel("Horario");
     private JTextField thorario = new JTextField();
-    
+
     private JLabel rango = new JLabel("Rango");
     private JComboBox trango = new JComboBox();
+
+    private JLabel exp = new JLabel("Experiencia");
+    private JTextField texp = new JTextField();
+
+    private JLabel encargado = new JLabel("Encargado");
+    private JComboBox tencargado = new JComboBox();
 
     public void inicio() {
         //frame
@@ -96,31 +103,47 @@ public class nEmp extends JFrame implements ActionListener {
 
         tss.setBounds(10, 220, 100, 20);
         pnl.add(tss);
-        
+
         fecha.setBounds(10, 240, 100, 20);
         pnl.add(fecha);
-        
-        tfecha.setBounds(10,260, 100, 20);
+
+        tfecha.setBounds(10, 260, 100, 20);
         pnl.add(tfecha);
-        
+
         sueldo.setBounds(10, 280, 100, 20);
         pnl.add(sueldo);
-        
+
         tsueldo.setBounds(10, 300, 100, 20);
         pnl.add(tsueldo);
-        
+
         horario.setBounds(150, 80, 100, 20);
         pnl.add(horario);
-        
-        thorario.setBounds(150, 100, 100 ,20);
+
+        thorario.setBounds(150, 100, 100, 20);
         pnl.add(thorario);
-        
+
         rango.setBounds(150, 120, 100, 20);
         pnl.add(rango);
-        
+
         trango.setBounds(150, 140, 100, 20);
         pnl.add(trango);
+        trango.setModel(new DefaultComboBoxModel(new bdd().rangos()));
         trango.setEnabled(false);
+
+        exp.setBounds(150, 160, 100, 20);
+        pnl.add(exp);
+
+        texp.setBounds(150, 180, 100, 20);
+        pnl.add(texp);
+        texp.setEnabled(false);
+
+        encargado.setBounds(150, 200, 100, 20);
+        pnl.add(encargado);
+
+        tencargado.setBounds(150, 220, 100, 20);
+        tencargado.setModel(new DefaultComboBoxModel(new bdd().encargado()));
+        tencargado.setEnabled(false);
+        pnl.add(tencargado);
 
     }
 
@@ -128,11 +151,27 @@ public class nEmp extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == desp) {
-            switch(desp.getSelectedIndex()){
+            switch (desp.getSelectedIndex()) {
                 case 0:
+                    trango.setEnabled(false);
+                    texp.setEnabled(false);
+                    tencargado.setEnabled(false);
+                    break;
                 case 1:
+                    trango.setEnabled(false);
+                    texp.setEnabled(true);
+                    tencargado.setEnabled(true);
+                    break;
                 case 2:
+                    trango.setEnabled(false);
+                    texp.setEnabled(false);
+                    tencargado.setEnabled(false);
+                    break;
                 case 3:
+                    trango.setEnabled(true);
+                    texp.setEnabled(false);
+                    tencargado.setEnabled(false);
+                    break;
             }
         }
 
