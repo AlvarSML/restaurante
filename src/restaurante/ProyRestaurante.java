@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public class ProyRestaurante {
     
-    public static void main(String[] args) throws IOException, Exception {
+    public static void main(String[] args) throws IOException, Exception {     
         bdd db = new bdd();
         db.MySQLConnection("root","123456","restaurante");
         
