@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package restaurante.elementos;
+package restaurante;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -41,7 +41,7 @@ public class bdd {
         boolean log = false;
         
         try {
-            String sel = "SELECT md5(passwd) FROM empleado where id = '"+usuario+"' and passwd = md5('"+pass+"')";
+            String sel = "SELECT * FROM empleado where id = '"+usuario+"' and passwd = md5('"+pass+"')";
             Statement st = Conexion.createStatement();
             ResultSet a = st.executeQuery(sel);
             

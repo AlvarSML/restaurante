@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
-import restaurante.elementos.bdd;
+import restaurante.bdd;
 
 /**
  *
@@ -94,8 +94,7 @@ public class Inicio extends JFrame implements ActionListener {
                 msg.setText("Correcto!");
                 msg.setForeground(Color.green);
                 // nueva ventana
-                menuAdmin m = new menuAdmin();
-                m.inicio();
+                new menuAdmin().inicio();                
                 frm.dispose();          
                 
             } else {
