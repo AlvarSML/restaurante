@@ -61,7 +61,7 @@ public class nEmp extends JFrame implements ActionListener {
     
     private JButton intro = new JButton("Intro");
 
-    public void inicio() {
+    public nEmp() {
         //frame
         frm.setBounds(200, 200, 400, 400);
         frm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -197,7 +197,9 @@ public class nEmp extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        if (rootPaneCheckingEnabled) {
+            
+        }
 
     }
 
