@@ -55,6 +55,11 @@ public class nEmp extends JFrame implements ActionListener {
 
     private JLabel encargado = new JLabel("Encargado");
     private JComboBox tencargado = new JComboBox();
+    
+    private JLabel titulos = new JLabel("Titulos");
+    private JTextField ttitulos = new JTextField();
+    
+    private JButton intro = new JButton("Intro");
 
     public void inicio() {
         //frame
@@ -77,6 +82,41 @@ public class nEmp extends JFrame implements ActionListener {
         desp.setBounds(10, 50, 150, 20);
         pnl.add(desp);
         desp.setModel(new DefaultComboBoxModel(new String[]{"Cocinero", "Camarero", "Sumiller", "Personal cocina"}));
+        desp.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                
+                if (e.getStateChange() == ItemEvent.DESELECTED) {
+                    if (e.getItem().toString().equals("Camarero")) {
+                        trango.setEnabled(false);
+                        texp.setEnabled(false);
+                        tencargado.setEnabled(false);
+                    }
+                }
+                
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    if (e.getItem().toString().equals("Camarero")) {
+                        trango.setEnabled(true);
+                        texp.setEnabled(true);
+                        tencargado.setEnabled(true);
+                    }
+                }
+                
+                 if (e.getStateChange() == ItemEvent.DESELECTED) {
+                    if (e.getItem().toString().equals("Sumiller")) {
+                       
+                    }
+                }
+                
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    if (e.getItem().toString().equals("Sumiller")) {
+                       
+                    }
+                }
+
+            }
+
+        });
         desp.addActionListener(this);
 
         //FORMULARIO
@@ -144,36 +184,20 @@ public class nEmp extends JFrame implements ActionListener {
         tencargado.setModel(new DefaultComboBoxModel(new bdd().encargado()));
         tencargado.setEnabled(false);
         pnl.add(tencargado);
-
+        
+        titulos.setBounds(150,240,100,20);
+        pnl.add(titulos);
+        
+        ttitulos.setBounds(150,260,100,20);
+        pnl.add(ttitulos);
+        
+        intro.setBounds(150,300,100,20);
+        pnl.add(intro);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == desp) {
-            switch (desp.getSelectedIndex()) {
-                case 0:
-                    trango.setEnabled(false);
-                    texp.setEnabled(false);
-                    tencargado.setEnabled(false);
-                    break;
-                case 1:
-                    trango.setEnabled(false);
-                    texp.setEnabled(true);
-                    tencargado.setEnabled(true);
-                    break;
-                case 2:
-                    trango.setEnabled(false);
-                    texp.setEnabled(false);
-                    tencargado.setEnabled(false);
-                    break;
-                case 3:
-                    trango.setEnabled(true);
-                    texp.setEnabled(false);
-                    tencargado.setEnabled(false);
-                    break;
-            }
-        }
 
     }
 

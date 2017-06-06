@@ -98,7 +98,7 @@ public class bdd {
         List<String> res = new ArrayList<>();
 
         try {
-            String sel = "Select id from camareros";
+            String sel = "Select id from camarero";
             Statement st = Conexion.createStatement();
             ResultSet a = st.executeQuery(sel);
 

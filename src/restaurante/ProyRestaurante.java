@@ -13,15 +13,12 @@ import java.io.IOException;
  * @author alvar
  */
 public class ProyRestaurante {
-    
-    public static void main(String[] args) throws IOException, Exception {     
+
+    public static void main(String[] args) throws IOException, Exception {
         bdd db = new bdd();
-        db.MySQLConnection("root","123456","restaurante");
-        
-        Inicio ini = new Inicio();
-        ini.inicio();
-       
+        db.MySQLConnection("root", "123456", "restaurante");
+        Inicio inicio = new Inicio();
+
     }
-    
 
 }

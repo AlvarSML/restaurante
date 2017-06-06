@@ -8,8 +8,8 @@ package frames;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.*;
 import restaurante.bdd;
 
@@ -18,7 +18,7 @@ import restaurante.bdd;
  * @author alvar
  */
 // prueba de ventana
-public class Inicio extends JFrame implements ActionListener {
+public class Inicio extends JFrame implements ActionListener, KeyListener {
 
     private JFrame frm = new JFrame("Inicio");
     private JPanel pnl = new JPanel();
@@ -33,7 +33,7 @@ public class Inicio extends JFrame implements ActionListener {
 
     private JButton entrar = new JButton("entrar");
 
-    public void inicio() {
+    public Inicio() {
 
         //frame
         frm.setBounds(200, 200, 400, 170);
@@ -70,20 +70,13 @@ public class Inicio extends JFrame implements ActionListener {
         // configuracion boton
         entrar.setActionCommand("intro");
         entrar.addActionListener(this);
-
-        // tecla enter  (WIP)
-        entrar.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    System.out.println("si");
-                    
-                }
-            }
-        });
-
+        
+        passwd.addKeyListener(this);
+        usuario.addKeyListener(this);
+        entrar.addKeyListener(this);
+        
     }
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -94,9 +87,9 @@ public class Inicio extends JFrame implements ActionListener {
                 msg.setText("Correcto!");
                 msg.setForeground(Color.green);
                 // nueva ventana
-                new menuAdmin().inicio();                
-                frm.dispose();          
-                
+                new menuAdmin().inicio();
+                frm.dispose();
+
             } else {
                 msg.setText("Inorrecto!");
                 msg.setForeground(Color.red);
@@ -104,6 +97,22 @@ public class Inicio extends JFrame implements ActionListener {
 
         }
 
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode()== KeyEvent.VK_ENTER) {
+           entrar.doClick();
+        }        
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
     }
 
 }
