@@ -64,7 +64,7 @@ public class menuAdmin extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == emp){
-            new nEmp().inicio();
+        nEmp nEmp = new nEmp();
  
         }
     }
