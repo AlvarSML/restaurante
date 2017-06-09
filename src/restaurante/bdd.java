@@ -59,21 +59,28 @@ public class bdd {
         return log;
     }
 
-    public static void crearEmpleado(int res, int id, String nom, String ape, String dni, String ss, String fechae, float sueldo, int tipo, int rango, int temp) {
+    public static void crearEmpleado(int res, int id, String nom, String ape, String dni, String ss, String fechae, float sueldo, int tipo, int rango, int temp, int encargado, String exp, String tit) {
 
         try {
             String ins = "INSERT INTO empleado (restaurante,nombre,apellido,dni,ss,fechae,sueldo,passwd,tipo) values (" + res + ",'" + nom + "'" + ",'" + ape + "'" + ",'" + dni + "'" + ",'" + ss + "'" + ",'" + fechae + "'" + "," + sueldo + ",'" + tipo + "');";
-            String sel = "SELECT id FROM empleado WHERE id = (SELECT max(id) FROM empleado)";
+            String sel = "SELECT id FROM empleado dni = '"+dni+"'";
             Statement st = Conexion.createStatement();
             st.executeUpdate(ins);
             ResultSet rs = st.executeQuery(sel);
             int idemp = rs.getInt(1);
 
             switch (temp) {
-                case 0:
+                case 0:                    
                     crearPerCocina(idemp, rango);
                     break;
                 case 1:
+                    crearCamarero(crearPerSala(idemp),exp,encargado);
+                    break;
+                case 2:
+                    crearSumiller(crearPerSala(idemp),tit);
+                    break;
+                case 3:
+                    crearPerCocina(idemp,rango);
 
             }
 
