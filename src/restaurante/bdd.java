@@ -59,16 +59,106 @@ public class bdd {
         return log;
     }
 
-    public static void crearEmpleado(int res, int id, String nom, String ape, String dni, String ss, String fechae, float sueldo, int tipo) {
+    public static void crearEmpleado(int res, int id, String nom, String ape, String dni, String ss, String fechae, float sueldo, int tipo, int rango, int temp, int encargado, String exp, String tit) {
 
         try {
-            String ins = "INSERT INTO empleado values (" + res + "," + id + ",'" + nom + "'";
+            String ins = "INSERT INTO empleado (restaurante,nombre,apellido,dni,ss,fechae,sueldo,passwd,tipo) values (" + res + ",'" + nom + "'" + ",'" + ape + "'" + ",'" + dni + "'" + ",'" + ss + "'" + ",'" + fechae + "'" + "," + sueldo + ",'" + tipo + "');";
+            String sel = "SELECT id FROM empleado dni = '"+dni+"'";
             Statement st = Conexion.createStatement();
             st.executeUpdate(ins);
+            ResultSet rs = st.executeQuery(sel);
+            int idemp = rs.getInt(1);
+
+            switch (temp) {
+                case 0:                    
+                    crearPerCocina(idemp, rango);
+                    break;
+                case 1:
+                    crearCamarero(crearPerSala(idemp),exp,encargado);
+                    break;
+                case 2:
+                    crearSumiller(crearPerSala(idemp),tit);
+                    break;
+                case 3:
+                    crearPerCocina(idemp,rango);
+
+            }
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+
+    public static void crearCamarero(int idsal, String exp, int en) {
+        try {
+            String ins = "INSERT into camarero (personal,experiencia,encargado) VALUES (" + idsal + ",'" + exp + "'" + en + ")";
+            Statement st = Conexion.createStatement();
+            st.executeUpdate(ins);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public static void crearCocinero(int idco) {
+        try {
+            String ins = "INSERT into cocinero (personal) VALUES (" + idco + ")";
+            Statement st = Conexion.createStatement();
+            st.executeUpdate(ins);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+    }
+
+    public static void crearSumiller(int persal, String tit) {
+        try {
+            String ins = "INSERT into sumiller (personal,titulos) VALUES (" + persal + ",'" + tit + "')";
+            Statement st = Conexion.createStatement();
+            st.executeUpdate(ins);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public static void crearMaitre(int idsal) {
+        try {
+            String ins = "INSERT into maitre (personal,titulos) VALUES (" + idsal + ")";
+            Statement st = Conexion.createStatement();
+            st.executeUpdate(ins);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public static int crearPerCocina(int id, int rango) {
+        int idper = 0;
+        try {
+            String ins = "INSERT into percocina (empleado,rango) VALUES (" + id + "," + rango + ")";
+            String sel = "SELECT id FROM percocina WHERE id = (SELECT max(id) FROM percocina)";
+            Statement st = Conexion.createStatement();
+            st.executeUpdate(ins);
+            ResultSet rs = st.executeQuery(sel);
+            idper = rs.getInt(1);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return idper;
+    }
+
+    public static int crearPerSala(int id) {
+        int idsal = 0;
+        try {
+            String ins = "INSERT into persala (empleado) VALUES (" + id + ")";
+            String sel = "SELECT id FROM persala WHERE id = (SELECT max(id) FROM persala)";
+            Statement st = Conexion.createStatement();
+            st.executeUpdate(ins);
+            ResultSet rs = st.executeQuery(sel);
+            idsal = rs.getInt(1);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return idsal;
     }
 
     public String[] rangos() {
@@ -89,11 +179,11 @@ public class bdd {
 
         String[] s = new String[res.size()];
         s = res.toArray(s);
-                
+
         return s;
 
     }
-    
+
     public String[] encargado() {
         List<String> res = new ArrayList<>();
 
@@ -112,7 +202,7 @@ public class bdd {
 
         String[] s = new String[res.size()];
         s = res.toArray(s);
-                
+
         return s;
 
     }
