@@ -59,7 +59,7 @@ public class bdd {
         return log;
     }
 
-    public static void crearEmpleado(int res, int id, String nom, String ape, String dni, String ss, String fechae, float sueldo, int tipo, int rango, int temp, int encargado, String exp, String tit) {
+    public static void crearEmpleado(int res, String nom, String ape, String dni, String ss, String fechae, float sueldo, int tipo, int rango, int encargado, String exp, String tit) {
 
         try {
             String ins = "INSERT INTO empleado (restaurante,nombre,apellido,dni,ss,fechae,sueldo,passwd,tipo) values (" + res + ",'" + nom + "'" + ",'" + ape + "'" + ",'" + dni + "'" + ",'" + ss + "'" + ",'" + fechae + "'" + "," + sueldo + ",'" + tipo + "');";
@@ -69,7 +69,7 @@ public class bdd {
             ResultSet rs = st.executeQuery(sel);
             int idemp = rs.getInt(1);
 
-            switch (temp) {
+            switch (tipo) {
                 case 0:                    
                     crearPerCocina(idemp, rango);
                     break;
@@ -183,6 +183,30 @@ public class bdd {
         return s;
 
     }
+    
+    public String[] restaurantes() {
+        List<String> res = new ArrayList<>();
+
+        try {
+            String sel = "Select id from restaurante";
+            Statement st = Conexion.createStatement();
+            ResultSet a = st.executeQuery(sel);
+
+            while (a.next()) {
+                res.add(a.getString(1));
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        String[] s = new String[res.size()];
+        s = res.toArray(s);
+
+        return s;
+
+    }
+
 
     public String[] encargado() {
         List<String> res = new ArrayList<>();

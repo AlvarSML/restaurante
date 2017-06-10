@@ -25,7 +25,10 @@ public class nEmp extends JFrame implements ActionListener {
 
     private JLabel titulo = new JLabel("Nuevo empleado");
     private JLabel tipo = new JLabel("Tipo");
-
+    
+    private JLabel res = new JLabel("Restaurante");
+    private JComboBox tres = new JComboBox();
+    
     private JLabel nom = new JLabel("Nombre");
     private JTextField tnom = new JTextField();
 
@@ -78,8 +81,15 @@ public class nEmp extends JFrame implements ActionListener {
 
         tipo.setBounds(10, 30, 100, 20);
         pnl.add(tipo);
+        
+        res.setBounds(150, 30, 100, 20);
+        pnl.add(res);
+        
+        tres.setBounds(150, 50, 100, 20);
+        pnl.add(tres);
+        tres.setModel(new DefaultComboBoxModel(new bdd().restaurantes()));
 
-        desp.setBounds(10, 50, 150, 20);
+        desp.setBounds(10, 50, 100, 20);
         pnl.add(desp);
         desp.setModel(new DefaultComboBoxModel(new String[]{"Cocinero", "Camarero", "Sumiller", "Personal cocina"}));
         desp.addItemListener(new ItemListener() {
@@ -193,12 +203,15 @@ public class nEmp extends JFrame implements ActionListener {
         
         intro.setBounds(150,300,100,20);
         pnl.add(intro);
+        intro.setActionCommand("intro");
+        intro.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (rootPaneCheckingEnabled) {
-            
+        if (e.getSource() == intro) {
+           bdd.crearEmpleado(tres.getSelectedItem(), tnom.getText(), tape.getText(), tdni.getText(), tss.getText(), tfecha.getText(),Float.parseFloat(tsueldo.getText()), desp.getSelectedIndex() , trango.getSelectedIndex() , tencargadotencargado.getSelectedItem(), texp.getText(), ttitulos.getText());
+            System.out.println(tencargado.getSelectedItem());
         }
 
     }
