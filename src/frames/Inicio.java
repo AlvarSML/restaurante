@@ -87,7 +87,7 @@ public class Inicio extends JFrame implements ActionListener, KeyListener {
                 msg.setText("Correcto!");
                 msg.setForeground(Color.green);
                 // nueva ventana
-                new menuAdmin().inicio();
+                menuAdmin menuAdmin = new menuAdmin();
                 frm.dispose();
 
             } else {

@@ -23,11 +23,11 @@ public class menuAdmin extends JFrame implements ActionListener {
     private JLabel tit2 = new JLabel("Acciones");
 
     private JButton emp = new JButton("Nuevo empleado");
-    private JButton emp2 = new JButton("Nuevo ...");
+    private JButton res = new JButton("Nueva reserva");
     private JButton emp3 = new JButton("Nuevo ...");
     private JButton emp4 = new JButton("Nuevo ...");
 
-    public void inicio() {
+    public menuAdmin() {
 
         //frame
         frm.setBounds(200, 200, 400, 400);
@@ -50,8 +50,8 @@ public class menuAdmin extends JFrame implements ActionListener {
         pnl.add(emp);
         emp.addActionListener(this);
 
-        emp2.setBounds(10, 100, 150, 30);
-        pnl.add(emp2);
+        res.setBounds(10, 100, 150, 30);
+        pnl.add(res);
 
         emp3.setBounds(10, 150, 150, 30);
         pnl.add(emp3);
@@ -64,7 +64,11 @@ public class menuAdmin extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == emp){
+
         nEmp nEmp = new nEmp();
+
+         
+
  
         }
     }
