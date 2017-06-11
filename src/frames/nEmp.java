@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.Arrays;
 import javax.swing.*;
 import restaurante.bdd;
 
@@ -25,10 +26,10 @@ public class nEmp extends JFrame implements ActionListener {
 
     private JLabel titulo = new JLabel("Nuevo empleado");
     private JLabel tipo = new JLabel("Tipo");
-    
+
     private JLabel res = new JLabel("Restaurante");
     private JComboBox tres = new JComboBox();
-    
+
     private JLabel nom = new JLabel("Nombre");
     private JTextField tnom = new JTextField();
 
@@ -58,10 +59,13 @@ public class nEmp extends JFrame implements ActionListener {
 
     private JLabel encargado = new JLabel("Encargado");
     private JComboBox tencargado = new JComboBox();
-    
+
     private JLabel titulos = new JLabel("Titulos");
     private JTextField ttitulos = new JTextField();
-    
+
+    private JLabel passwd = new JLabel("Contraseña");
+    private JPasswordField tpasswd = new JPasswordField();
+
     private JButton intro = new JButton("Intro");
 
     public nEmp() {
@@ -81,10 +85,10 @@ public class nEmp extends JFrame implements ActionListener {
 
         tipo.setBounds(10, 30, 100, 20);
         pnl.add(tipo);
-        
+
         res.setBounds(150, 30, 100, 20);
         pnl.add(res);
-        
+
         tres.setBounds(150, 50, 100, 20);
         pnl.add(tres);
         tres.setModel(new DefaultComboBoxModel(new bdd().restaurantes()));
@@ -95,7 +99,7 @@ public class nEmp extends JFrame implements ActionListener {
         desp.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                
+
                 if (e.getStateChange() == ItemEvent.DESELECTED) {
                     if (e.getItem().toString().equals("Camarero")) {
                         trango.setEnabled(false);
@@ -103,7 +107,7 @@ public class nEmp extends JFrame implements ActionListener {
                         tencargado.setEnabled(false);
                     }
                 }
-                
+
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     if (e.getItem().toString().equals("Camarero")) {
                         trango.setEnabled(true);
@@ -111,16 +115,16 @@ public class nEmp extends JFrame implements ActionListener {
                         tencargado.setEnabled(true);
                     }
                 }
-                
-                 if (e.getStateChange() == ItemEvent.DESELECTED) {
+
+                if (e.getStateChange() == ItemEvent.DESELECTED) {
                     if (e.getItem().toString().equals("Sumiller")) {
-                       
+
                     }
                 }
-                
+
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     if (e.getItem().toString().equals("Sumiller")) {
-                       
+
                     }
                 }
 
@@ -175,9 +179,9 @@ public class nEmp extends JFrame implements ActionListener {
         rango.setBounds(150, 120, 100, 20);
         pnl.add(rango);
 
-        trango.setBounds(150, 140, 100, 20);
-        pnl.add(trango);
+        trango.setBounds(150, 140, 100, 20);              
         trango.setModel(new DefaultComboBoxModel(new bdd().rangos()));
+        pnl.add(trango);
         trango.setEnabled(false);
 
         exp.setBounds(150, 160, 100, 20);
@@ -192,26 +196,36 @@ public class nEmp extends JFrame implements ActionListener {
 
         tencargado.setBounds(150, 220, 100, 20);
         tencargado.setModel(new DefaultComboBoxModel(new bdd().encargado()));
+        tencargado.addItem("Nadie");
         tencargado.setEnabled(false);
         pnl.add(tencargado);
-        
-        titulos.setBounds(150,240,100,20);
+
+        titulos.setBounds(150, 240, 100, 20);
         pnl.add(titulos);
-        
-        ttitulos.setBounds(150,260,100,20);
+
+        ttitulos.setBounds(150, 260, 100, 20);
         pnl.add(ttitulos);
-        
-        intro.setBounds(150,300,100,20);
+
+        intro.setBounds(80, 330, 100, 20);
         pnl.add(intro);
         intro.setActionCommand("intro");
         intro.addActionListener(this);
+
+        passwd.setBounds(150, 280, 100, 20);
+        pnl.add(passwd);
+
+        tpasswd.setBounds(150, 300, 100, 20);
+        pnl.add(tpasswd);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == intro) {
-           bdd.crearEmpleado(tres.getSelectedItem(), tnom.getText(), tape.getText(), tdni.getText(), tss.getText(), tfecha.getText(),Float.parseFloat(tsueldo.getText()), desp.getSelectedIndex() , trango.getSelectedIndex() , tencargadotencargado.getSelectedItem(), texp.getText(), ttitulos.getText());
-            System.out.println(tencargado.getSelectedItem());
+            String enc = tencargado.getSelectedItem().toString();
+            String pass = Arrays.toString(tpasswd.getPassword());
+            
+            bdd.crearEmpleado(Integer.parseInt(tres.getSelectedItem().toString()), tnom.getText(), tape.getText(), tdni.getText(), tss.getText(), tfecha.getText(), Float.parseFloat(tsueldo.getText()), desp.getSelectedIndex(), trango.getSelectedIndex(), enc, texp.getText(), ttitulos.getText(), pass);
+            
         }
 
     }
