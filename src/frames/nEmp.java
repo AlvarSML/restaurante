@@ -68,6 +68,10 @@ public class nEmp extends JFrame implements ActionListener {
 
     private JButton intro = new JButton("Intro");
 
+    private JLabel salida = new JLabel("...");
+
+    private JTextArea out = new JTextArea();
+
     public nEmp() {
         //frame
         frm.setBounds(200, 200, 400, 400);
@@ -179,7 +183,7 @@ public class nEmp extends JFrame implements ActionListener {
         rango.setBounds(150, 120, 100, 20);
         pnl.add(rango);
 
-        trango.setBounds(150, 140, 100, 20);              
+        trango.setBounds(150, 140, 100, 20);
         trango.setModel(new DefaultComboBoxModel(new bdd().rangos()));
         pnl.add(trango);
         trango.setEnabled(false);
@@ -216,18 +220,50 @@ public class nEmp extends JFrame implements ActionListener {
 
         tpasswd.setBounds(150, 300, 100, 20);
         pnl.add(tpasswd);
+
+        salida.setBounds(270, 40, 100, 20);
+        pnl.add(salida);
+
+        out.setBounds(270, 60, 100, 200);
+        out.setEnabled(false);
+        out.setText("prueba");
+        pnl.add(out);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == intro) {
-            String enc = tencargado.getSelectedItem().toString();
-            String pass = Arrays.toString(tpasswd.getPassword());
-            
-            bdd.crearEmpleado(Integer.parseInt(tres.getSelectedItem().toString()), tnom.getText(), tape.getText(), tdni.getText(), tss.getText(), tfecha.getText(), Float.parseFloat(tsueldo.getText()), desp.getSelectedIndex(), trango.getSelectedIndex(), enc, texp.getText(), ttitulos.getText(), pass);
-            
+        try {
+            if (e.getSource() == intro) {
+                String enc = tencargado.getSelectedItem().toString();
+                String pass = Arrays.toString(tpasswd.getPassword());
+
+                bdd.crearEmpleado(Integer.parseInt(tres.getSelectedItem().toString()), tnom.getText(), tape.getText(), tdni.getText(), tss.getText(), tfecha.getText(), Float.parseFloat(tsueldo.getText()), desp.getSelectedIndex(), trango.getSelectedIndex(), enc, texp.getText(), ttitulos.getText(), pass);
+
+                salida.setText(desp.getSelectedItem().toString() + " creado");
+            }
+        } catch (NumberFormatException ex) {
+            System.out.println(ex.getMessage());
+            out.setText(ex.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            out.setText(ex.getMessage());
         }
 
+    }
+
+    private boolean compCampos() {
+        boolean i = false;
+
+        if (ttitulos.getText() == null
+                || tsueldo.getText() == null
+                || tss.getText() == null
+                || tnom.getText() == null
+                || thorario.getText() == null
+                || tfecha.getText() == null ) {
+
+        }
+
+        return i;
     }
 
 }

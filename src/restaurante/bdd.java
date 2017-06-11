@@ -176,11 +176,12 @@ public class bdd {
         int idsal = 0;
         try {
             String ins = "INSERT into persala (empleado) VALUES (" + id + ")";
-            String sel = "SELECT id FROM persala WHERE id = (SELECT max(id) FROM persala)";
+            String sel = "SELECT * FROM persala";
             Statement st = Conexion.createStatement();
             st.executeUpdate(ins);
             ResultSet rs = st.executeQuery(sel);
-            idsal = rs.getInt(1);
+            rs.last();
+            idsal = rs.getInt("id");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -189,7 +190,7 @@ public class bdd {
     }
 
     public String[] rangos() {
-        List<String> res = new ArrayList<>();
+        List<String> ran = new ArrayList<>();
 
         try {
             String sel = "Select descripcion from rangos";
@@ -197,15 +198,15 @@ public class bdd {
             ResultSet a = st.executeQuery(sel);
 
             while (a.next()) {
-                res.add(a.getString(1));
+                ran.add(a.getString(1));
             }
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
 
-        String[] s = new String[res.size()];
-        s = res.toArray(s);
+        String[] s = new String[ran.size()];
+        s = ran.toArray(s);
 
         return s;
 
