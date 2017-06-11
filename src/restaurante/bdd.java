@@ -24,7 +24,7 @@ public class bdd {
     public void MySQLConnection(String user, String pass, String db_name) throws SQLException {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Conexion = DriverManager.getConnection("jdbc:mysql://localhost:3307/" + db_name, user, pass);
+            Conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + db_name, user, pass);
             System.out.println("*Conectado*");
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getMessage());
@@ -59,27 +59,42 @@ public class bdd {
         return log;
     }
 
-    public static void crearEmpleado(int res, String nom, String ape, String dni, String ss, String fechae, float sueldo, int tipo, int rango, int encargado, String exp, String tit) {
+    public static void crearEmpleado(int res, String nom, String ape, String dni, String ss, String fechae, float sueldo, int tipo, int rango, String encargado, String exp, String tit, String passwd) {
 
         try {
-            String ins = "INSERT INTO empleado (restaurante,nombre,apellido,dni,ss,fechae,sueldo,passwd,tipo) values (" + res + ",'" + nom + "'" + ",'" + ape + "'" + ",'" + dni + "'" + ",'" + ss + "'" + ",'" + fechae + "'" + "," + sueldo + ",'" + tipo + "');";
-            String sel = "SELECT id FROM empleado dni = '"+dni+"'";
+            String ins = "INSERT INTO empleado (restaurante,nombre,apellido,dni,ss,fechae,sueldo,passwd,tipo) values (" + res + ",'" + nom + "'" + ",'" + ape + "'" + ",'" + dni + "'" + ",'" + ss + "'" + ",'" + fechae + "'" + "," + sueldo + ", md5('"+ passwd +"'),'" + tipo + "');";
+            String sel = "SELECT id FROM empleado";
+            
             Statement st = Conexion.createStatement();
+            Statement st2 = Conexion.createStatement();
+            
             st.executeUpdate(ins);
-            ResultSet rs = st.executeQuery(sel);
-            int idemp = rs.getInt(1);
-
+            ResultSet rs = st2.executeQuery(sel);
+            rs.last();
+            
+            int idemp = rs.getInt("id");
+            System.out.println(idemp);
+            
+            
             switch (tipo) {
-                case 0:                    
-                    crearPerCocina(idemp, rango);
+                case 0:
+                    //crear cocinero
+                    rango = 5;
+                    System.out.println("Creando cocinero");
+                    crearCocinero(crearPerCocina(idemp, rango));
                     break;
                 case 1:
+                    //crear camarero
+                    System.out.println("Creando camarero");
                     crearCamarero(crearPerSala(idemp),exp,encargado);
                     break;
                 case 2:
+                    System.out.println("Creando Sumiller");
+                    //crear sumiller
                     crearSumiller(crearPerSala(idemp),tit);
                     break;
                 case 3:
+                    //crear percocina
                     crearPerCocina(idemp,rango);
 
             }
@@ -89,21 +104,29 @@ public class bdd {
         }
     }
 
-    public static void crearCamarero(int idsal, String exp, int en) {
+    public static void crearCamarero(int idsal, String exp, String en) {
         try {
             String ins = "INSERT into camarero (personal,experiencia,encargado) VALUES (" + idsal + ",'" + exp + "'" + en + ")";
+            if (en.equals("Nadie")) {
+                ins = "INSERT into camarero (personal,experiencia) VALUES (" + idsal + ",'" + exp + "')";
+            }
+            
+            System.out.println(ins);
             Statement st = Conexion.createStatement();
             st.executeUpdate(ins);
+            
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
     }
 
     public static void crearCocinero(int idco) {
+        
         try {
             String ins = "INSERT into cocinero (personal) VALUES (" + idco + ")";
             Statement st = Conexion.createStatement();
             st.executeUpdate(ins);
+            System.out.println("Cocinero creado");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -131,14 +154,18 @@ public class bdd {
     }
 
     public static int crearPerCocina(int id, int rango) {
+        System.out.println("creando percocina");
         int idper = 0;
         try {
             String ins = "INSERT into percocina (empleado,rango) VALUES (" + id + "," + rango + ")";
-            String sel = "SELECT id FROM percocina WHERE id = (SELECT max(id) FROM percocina)";
+            String sel = "SELECT * FROM percocina";
             Statement st = Conexion.createStatement();
-            st.executeUpdate(ins);
+            st.executeUpdate(ins);            
             ResultSet rs = st.executeQuery(sel);
-            idper = rs.getInt(1);
+            rs.last();
+            idper = rs.getInt("id");   
+            System.out.println("El id del cocinero sera: "+ idper);
+            System.out.println("Percocina creado");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
