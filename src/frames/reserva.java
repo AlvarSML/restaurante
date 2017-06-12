@@ -29,6 +29,8 @@ public class reserva extends JFrame {
 
     private JLabel hora = new JLabel("Hora");
     private JTextField thora = new JTextField();
+    
+    private JButton intro = new JButton("Intro");
 
     public reserva(int id) {
         //frame
@@ -42,7 +44,7 @@ public class reserva extends JFrame {
         frm.setVisible(true);
 
         // elementos
-        titulo.setBounds(frm.getWidth() / 3, 40, 100, 20);
+        titulo.setBounds(frm.getWidth() / 3, 10, 100, 20);
         pnl.add(titulo);
 
         idper.setBounds(20, 60, 100, 20);
@@ -70,6 +72,9 @@ public class reserva extends JFrame {
         
         thora.setBounds(20, 200, 100, 20);
         pnl.add(thora);
+        
+        intro.setBounds(20, 240, 80, 20);
+        pnl.add(intro);
     }
 
 }

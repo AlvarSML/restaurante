@@ -60,9 +60,11 @@ public class menuAdmin extends JFrame implements ActionListener {
         
         sal.setBounds(10, 150, 150, 30);
         pnl.add(sal);
+        sal.addActionListener(this);
         
         mes.setBounds(10, 200, 150, 30);
         pnl.add(mes);
+        mes.addActionListener(this);
         
         if (n != 9) {
             emp.setEnabled(false);
@@ -76,6 +78,8 @@ public class menuAdmin extends JFrame implements ActionListener {
             nEmp nEmp = new nEmp();            
         } else if (e.getSource() == res){
             reserva reserva = new reserva(id);
+        } else if (e.getSource() == sal){
+            nSala n = new nSala();
         } 
     }
     
