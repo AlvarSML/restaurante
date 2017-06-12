@@ -80,7 +80,9 @@ public class menuAdmin extends JFrame implements ActionListener {
             reserva reserva = new reserva(id);
         } else if (e.getSource() == sal){
             nSala n = new nSala();
-        } 
+        } else if (e.getSource() == mes){
+            nMesa m = new nMesa();
+        }
     }
     
 }

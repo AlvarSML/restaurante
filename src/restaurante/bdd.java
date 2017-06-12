@@ -203,8 +203,20 @@ public class bdd {
 
         return idsal;
     }
-
-    public String[] rangos() {
+    
+    public static void crearSala(String nombre, int restaurante){
+         try {
+            String ins = "insert into sala (nombre,restaurante) values ('"+nombre+"',"+restaurante+");";
+            Statement st = Conexion.createStatement();
+            st.executeUpdate(ins);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    //obtener datos
+    
+    public static String[] rangos() {
         List<String> ran = new ArrayList<>();
 
         try {
@@ -231,12 +243,12 @@ public class bdd {
         List<String> res = new ArrayList<>();
 
         try {
-            String sel = "Select id from restaurante";
+            String sel = "Select * from restaurante";
             Statement st = Conexion.createStatement();
             ResultSet a = st.executeQuery(sel);
 
             while (a.next()) {
-                res.add(a.getString(1));
+                res.add(a.getString(2));
             }
 
         } catch (SQLException ex) {
@@ -260,6 +272,31 @@ public class bdd {
 
             while (a.next()) {
                 res.add(a.getString(1));
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        String[] s = new String[res.size()];
+        s = res.toArray(s);
+
+        return s;
+
+    }
+    
+    
+    public String[] formas() {
+        List<String> res = new ArrayList<>();
+
+        try {
+            String sel = "Select * from forma";
+            Statement st = Conexion.createStatement();
+            ResultSet a = st.executeQuery(sel);
+
+            while (a.next()) {
+                res.add(a.getString(2));
+                System.out.println(a.getString(2));
             }
 
         } catch (SQLException ex) {
