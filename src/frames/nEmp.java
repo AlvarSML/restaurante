@@ -19,7 +19,7 @@ import restaurante.bdd;
  */
 public class nEmp extends JFrame implements ActionListener {
 
-    private JFrame frm = new JFrame("Menu");
+    private JFrame frm = new JFrame("Nuevo empleado");
     private JPanel pnl = new JPanel();
 
     private JComboBox desp = new JComboBox();
@@ -67,6 +67,8 @@ public class nEmp extends JFrame implements ActionListener {
     private JPasswordField tpasswd = new JPasswordField();
 
     private JButton intro = new JButton("Intro");
+
+    private JLabel salida = new JLabel("...");
 
     public nEmp() {
         //frame
@@ -179,7 +181,7 @@ public class nEmp extends JFrame implements ActionListener {
         rango.setBounds(150, 120, 100, 20);
         pnl.add(rango);
 
-        trango.setBounds(150, 140, 100, 20);              
+        trango.setBounds(150, 140, 100, 20);
         trango.setModel(new DefaultComboBoxModel(new bdd().rangos()));
         pnl.add(trango);
         trango.setEnabled(false);
@@ -216,16 +218,29 @@ public class nEmp extends JFrame implements ActionListener {
 
         tpasswd.setBounds(150, 300, 100, 20);
         pnl.add(tpasswd);
+
+        salida.setBounds(270, 40, 100, 20);
+        pnl.add(salida);
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == intro) {
-            String enc = tencargado.getSelectedItem().toString();
-            String pass = Arrays.toString(tpasswd.getPassword());
+        try {
+            if (e.getSource() == intro) {
+                String enc = tencargado.getSelectedItem().toString();
+                String pass = Arrays.toString(tpasswd.getPassword());
+
+                bdd.crearEmpleado(Integer.parseInt(tres.getSelectedItem().toString()), tnom.getText(), tape.getText(), tdni.getText(), tss.getText(), tfecha.getText(), Float.parseFloat(tsueldo.getText()), desp.getSelectedIndex(), trango.getSelectedIndex(), enc, texp.getText(), ttitulos.getText(), pass);
+
+                salida.setText(desp.getSelectedItem().toString() + " creado");
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             
-            bdd.crearEmpleado(Integer.parseInt(tres.getSelectedItem().toString()), tnom.getText(), tape.getText(), tdni.getText(), tss.getText(), tfecha.getText(), Float.parseFloat(tsueldo.getText()), desp.getSelectedIndex(), trango.getSelectedIndex(), enc, texp.getText(), ttitulos.getText(), pass);
-            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+
         }
 
     }
