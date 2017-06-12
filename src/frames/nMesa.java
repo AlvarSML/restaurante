@@ -5,6 +5,9 @@
  */
 package frames;
 
+import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.JPanel;
 import restaurante.bdd;
@@ -13,7 +16,7 @@ import restaurante.bdd;
  *
  * @author alvar
  */
-public class nMesa {
+public class nMesa implements ActionListener{
     
     private JFrame frm = new JFrame("Reserva");
     private JPanel pnl = new JPanel();
@@ -23,6 +26,10 @@ public class nMesa {
     private JLabel forma = new JLabel("Forma");
     private JComboBox tforma = new JComboBox();
     
+    private JLabel cantidad = new JLabel("Cantidad");
+    private JTextField tcantidad = new JTextField();
+    
+    private JButton intro = new JButton("Intro");
     
     
     public nMesa() {
@@ -42,8 +49,31 @@ public class nMesa {
         forma.setBounds(20, 60, 100, 20);
         pnl.add(forma);
         
-        tforma.setBounds(20, 80, 120, 20);
+        tforma.setBounds(20, 80, 100, 20);
         pnl.add(tforma);
         tforma.setModel(new DefaultComboBoxModel(new bdd().formas()));
+        
+        cantidad.setBounds(20, 100, 100, 20);
+        pnl.add(cantidad);
+        
+        tcantidad.setBounds(20, 120, 100, 20);
+        pnl.add(tcantidad);
+        
+        intro.setBounds(20, 160, 100, 20);
+        pnl.add(intro);
+        intro.addActionListener(this);
+        
+        
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        try {            
+            if (e.getSource() == intro) {
+              // bdd.crearMesa(tforma.getSelectedIndex()+1, , 0);
+            }            
+        } catch (HeadlessException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
     }
 }

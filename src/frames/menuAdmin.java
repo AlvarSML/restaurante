@@ -25,9 +25,9 @@ public class menuAdmin extends JFrame implements ActionListener {
     private JLabel tit2 = new JLabel("Acciones");
     
     private JButton emp = new JButton("Nuevo empleado");
-    private JButton res = new JButton("Nueva reserva");
-    private JButton sal = new JButton("Nueva sala");
-    private JButton mes = new JButton("Nuevo mesa");
+    private JButton res = new JButton("Nueva reserva WIP");
+    private JButton sal = new JButton("Nueva sala WIP");
+    private JButton mes = new JButton("Nuevo mesa WIP");
     
     public menuAdmin(int n) {
         

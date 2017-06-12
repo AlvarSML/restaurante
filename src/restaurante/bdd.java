@@ -62,17 +62,16 @@ public class bdd {
     public static int tipoEmpleado(int id) {
 
         try {
-            String sel = "SELECT tipo FROM empleado WHERE id ="+id;
+            String sel = "SELECT tipo FROM empleado WHERE id =" + id;
             Statement st = Conexion.createStatement();
-            ResultSet rs = st.executeQuery(sel);              
+            ResultSet rs = st.executeQuery(sel);
             rs.last();
             return rs.getInt("tipo");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             return 99;
         }
-        
-       
+
     }
 
     public static void crearEmpleado(int res, String nom, String ape, String dni, String ss, String fechae, float sueldo, int tipo, int rango, String encargado, String exp, String tit, String passwd) {
@@ -203,19 +202,42 @@ public class bdd {
 
         return idsal;
     }
-    
-    public static void crearSala(String nombre, int restaurante){
-         try {
-            String ins = "insert into sala (nombre,restaurante) values ('"+nombre+"',"+restaurante+");";
+
+    public static void crearSala(String nombre, int restaurante) {
+        try {
+            String ins = "insert into sala (nombre,restaurante) values ('" + nombre + "'," + restaurante + ");";
             Statement st = Conexion.createStatement();
             st.executeUpdate(ins);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
     }
-    
+
+    public static void crearMesa(int forma, int sala, int cantidad) {
+        try {
+            String ins = "insert into mesa (forma,sala) values (" + forma + "," + sala + ");";
+            Statement st = Conexion.createStatement();
+
+            for (int i = 0; i < cantidad; i++) {
+                st.executeUpdate(ins);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public static void crearReserva(int mesa, int sala, int restaurante, String fecha, String nombre, int personas, int id) {
+        try {
+            String ins = "insert into reserva (mesa,sala,restaurante,fecha,cliente,comensales,empleado) values ("+mesa+","+sala+","+restaurante+","+fecha+","+nombre+","+personas+","+id+");";
+            Statement st = Conexion.createStatement();
+            st.executeUpdate(ins);
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
     //obtener datos
-    
     public static String[] rangos() {
         List<String> ran = new ArrayList<>();
 
@@ -284,8 +306,7 @@ public class bdd {
         return s;
 
     }
-    
-    
+
     public String[] formas() {
         List<String> res = new ArrayList<>();
 
