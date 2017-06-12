@@ -19,7 +19,7 @@ import restaurante.bdd;
  */
 public class nEmp extends JFrame implements ActionListener {
 
-    private JFrame frm = new JFrame("Menu");
+    private JFrame frm = new JFrame("Nuevo empleado");
     private JPanel pnl = new JPanel();
 
     private JComboBox desp = new JComboBox();
@@ -69,8 +69,6 @@ public class nEmp extends JFrame implements ActionListener {
     private JButton intro = new JButton("Intro");
 
     private JLabel salida = new JLabel("...");
-
-    private JTextArea out = new JTextArea();
 
     public nEmp() {
         //frame
@@ -224,10 +222,6 @@ public class nEmp extends JFrame implements ActionListener {
         salida.setBounds(270, 40, 100, 20);
         pnl.add(salida);
 
-        out.setBounds(270, 60, 100, 200);
-        out.setEnabled(false);
-        out.setText("prueba");
-        pnl.add(out);
     }
 
     @Override
@@ -242,28 +236,13 @@ public class nEmp extends JFrame implements ActionListener {
                 salida.setText(desp.getSelectedItem().toString() + " creado");
             }
         } catch (NumberFormatException ex) {
-            System.out.println(ex.getMessage());
-            out.setText(ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+            
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            out.setText(ex.getMessage());
-        }
-
-    }
-
-    private boolean compCampos() {
-        boolean i = false;
-
-        if (ttitulos.getText() == null
-                || tsueldo.getText() == null
-                || tss.getText() == null
-                || tnom.getText() == null
-                || thorario.getText() == null
-                || tfecha.getText() == null ) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
 
         }
 
-        return i;
     }
 
 }

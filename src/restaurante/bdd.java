@@ -59,23 +59,38 @@ public class bdd {
         return log;
     }
 
+    public static int tipoEmpleado(int id) {
+
+        try {
+            String sel = "SELECT tipo FROM empleado WHERE id ="+id;
+            Statement st = Conexion.createStatement();
+            ResultSet rs = st.executeQuery(sel);              
+            rs.last();
+            return rs.getInt("tipo");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return 99;
+        }
+        
+       
+    }
+
     public static void crearEmpleado(int res, String nom, String ape, String dni, String ss, String fechae, float sueldo, int tipo, int rango, String encargado, String exp, String tit, String passwd) {
 
         try {
-            String ins = "INSERT INTO empleado (restaurante,nombre,apellido,dni,ss,fechae,sueldo,passwd,tipo) values (" + res + ",'" + nom + "'" + ",'" + ape + "'" + ",'" + dni + "'" + ",'" + ss + "'" + ",'" + fechae + "'" + "," + sueldo + ", md5('"+ passwd +"'),'" + tipo + "');";
+            String ins = "INSERT INTO empleado (restaurante,nombre,apellido,dni,ss,fechae,sueldo,passwd,tipo) values (" + res + ",'" + nom + "'" + ",'" + ape + "'" + ",'" + dni + "'" + ",'" + ss + "'" + ",'" + fechae + "'" + "," + sueldo + ", md5('" + passwd + "'),'" + tipo + "');";
             String sel = "SELECT id FROM empleado";
-            
+
             Statement st = Conexion.createStatement();
             Statement st2 = Conexion.createStatement();
-            
+
             st.executeUpdate(ins);
             ResultSet rs = st2.executeQuery(sel);
             rs.last();
-            
+
             int idemp = rs.getInt("id");
             System.out.println(idemp);
-            
-            
+
             switch (tipo) {
                 case 0:
                     //crear cocinero
@@ -86,16 +101,16 @@ public class bdd {
                 case 1:
                     //crear camarero
                     System.out.println("Creando camarero");
-                    crearCamarero(crearPerSala(idemp),exp,encargado);
+                    crearCamarero(crearPerSala(idemp), exp, encargado);
                     break;
                 case 2:
                     System.out.println("Creando Sumiller");
                     //crear sumiller
-                    crearSumiller(crearPerSala(idemp),tit);
+                    crearSumiller(crearPerSala(idemp), tit);
                     break;
                 case 3:
                     //crear percocina
-                    crearPerCocina(idemp,rango);
+                    crearPerCocina(idemp, rango);
 
             }
 
@@ -110,18 +125,18 @@ public class bdd {
             if (en.equals("Nadie")) {
                 ins = "INSERT into camarero (personal,experiencia) VALUES (" + idsal + ",'" + exp + "')";
             }
-            
+
             System.out.println(ins);
             Statement st = Conexion.createStatement();
             st.executeUpdate(ins);
-            
+
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
     }
 
     public static void crearCocinero(int idco) {
-        
+
         try {
             String ins = "INSERT into cocinero (personal) VALUES (" + idco + ")";
             Statement st = Conexion.createStatement();
@@ -160,11 +175,11 @@ public class bdd {
             String ins = "INSERT into percocina (empleado,rango) VALUES (" + id + "," + rango + ")";
             String sel = "SELECT * FROM percocina";
             Statement st = Conexion.createStatement();
-            st.executeUpdate(ins);            
+            st.executeUpdate(ins);
             ResultSet rs = st.executeQuery(sel);
             rs.last();
-            idper = rs.getInt("id");   
-            System.out.println("El id del cocinero sera: "+ idper);
+            idper = rs.getInt("id");
+            System.out.println("El id del cocinero sera: " + idper);
             System.out.println("Percocina creado");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -211,7 +226,7 @@ public class bdd {
         return s;
 
     }
-    
+
     public String[] restaurantes() {
         List<String> res = new ArrayList<>();
 
@@ -234,7 +249,6 @@ public class bdd {
         return s;
 
     }
-
 
     public String[] encargado() {
         List<String> res = new ArrayList<>();

@@ -70,13 +70,13 @@ public class Inicio extends JFrame implements ActionListener, KeyListener {
         // configuracion boton
         entrar.setActionCommand("intro");
         entrar.addActionListener(this);
-        
+
         passwd.addKeyListener(this);
         usuario.addKeyListener(this);
         entrar.addKeyListener(this);
-        
+
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -87,7 +87,9 @@ public class Inicio extends JFrame implements ActionListener, KeyListener {
                 msg.setText("Correcto!");
                 msg.setForeground(Color.green);
                 // nueva ventana
-                menuAdmin menuAdmin = new menuAdmin();
+                int id = Integer.parseInt(usuario.getText());
+                int tipo = bdd.tipoEmpleado(id);
+                menuAdmin menuAdmin = new menuAdmin(tipo);
                 frm.dispose();
 
             } else {
@@ -106,9 +108,9 @@ public class Inicio extends JFrame implements ActionListener, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode()== KeyEvent.VK_ENTER) {
-           entrar.doClick();
-        }        
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            entrar.doClick();
+        }
     }
 
     @Override
